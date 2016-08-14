@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <title>Getting Started: Serving Web Content</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	</head>
+	<body>
+		<div id="affichage">
+			<h1>Dépenses</h1>
+			<table>
+				<tr>
+					<th>Label</th>
+					<th>Propriétaire</th>
+					<th>Montant</th>
+				</tr>
+				<tr th:each="depense : ${depenses}">
+			        <td th:text="${depense.label}"></td>
+			        <td th:text="${depense.proprietaire}"></td>
+			        <td th:text="${depense.montant}"></td>
+			        <td><a th:href="@{/depenses/modifier(id=${depense.id})}">modifier</a></td>
+			        <td><a th:href="@{/depenses/supprimer(id=${depense.id})}">supprimer</a></td>
+			    </tr>
+			</table>
+			
+			<h3 th:text="${message}"></h3>
+		</div>
+		
+		<div id="ajouter">
+			<form action="#" th:action="@{/depenses/ajouter}" th:object="${Depense}" method="post">
+			   <p> Propriétaire <input type="text" id="proprietaire" name="proprietaire" /> </p>
+			   <p> Label <input type="text" id="label" name="label" /> </p>
+			   <p> Montant <input type="text" id="montant" name="montant" /> </p>
+			   <input type="submit" value="Ajouter"/>
+			</form>
+		</div>
+	</body>
+</html>

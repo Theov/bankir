@@ -1,0 +1,9 @@
+fr\thiiozz\constants\DepenseConstants.class
+fr\thiiozz\constants\GeneralConstants.class
+fr\thiiozz\services\DepenseService.class
+fr\thiiozz\CompteApplication.class
+fr\thiiozz\dao\DepenseDAO.class
+fr\thiiozz\controller\DepenseController.class
+fr\thiiozz\utils\StringHelper.class
+fr\thiiozz\controller\MainController.class
+fr\thiiozz\model\Depense.class

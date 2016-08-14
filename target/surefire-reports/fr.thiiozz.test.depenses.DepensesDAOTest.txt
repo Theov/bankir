@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: fr.thiiozz.test.depenses.DepensesDAOTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.247 sec <<< FAILURE! - in fr.thiiozz.test.depenses.DepensesDAOTest
+testExample(fr.thiiozz.test.depenses.DepensesDAOTest)  Time elapsed: 0.032 sec  <<< ERROR!
+java.lang.IllegalStateException: Entity fr.thiiozz.model.Depense already has an ID
+	at org.springframework.util.Assert.state(Assert.java:392)
+	at org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager.persist(TestEntityManager.java:93)
+	at fr.thiiozz.test.depenses.DepensesDAOTest.testExample(DepensesDAOTest.java:29)
+
