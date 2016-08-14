@@ -15,6 +15,7 @@ hs_err_pid*
 # Compiled Code #
 *.class
 */target/**
+*target/*
 
 # Log Files #
 *.log
