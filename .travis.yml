@@ -1,3 +1,8 @@
 language: java
 jdk:
   - oraclejdk8
+
+deploy:
+  provider: heroku
+  api_key: 9c8630a6-5002-4077-bfe2-859a7df27aaa
+  app: bankir
