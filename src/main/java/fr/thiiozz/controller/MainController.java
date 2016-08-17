@@ -8,7 +8,11 @@ public class MainController {
 	
   @RequestMapping(value="/")
   public String index() {
-      return "redirect:depenses/afficher";
+      return "redirect:depenses";
   }
   
+  @RequestMapping(value="/home")
+  public String home() {
+      return "redirect:depenses";
+  }
 }

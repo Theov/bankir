@@ -3,8 +3,9 @@ package fr.thiiozz.dao;
 import javax.transaction.Transactional;
 
 import org.springframework.data.repository.CrudRepository;
-import fr.thiiozz.model.Depense;
+
+import fr.thiiozz.model.Authority;
 
 @Transactional
-public interface DepenseDAO extends CrudRepository<Depense, Long>{
+public interface RoleDAO extends CrudRepository<Authority, String>{
 }

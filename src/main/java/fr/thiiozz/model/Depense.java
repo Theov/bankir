@@ -1,9 +1,16 @@
 package fr.thiiozz.model;
 
+import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -21,13 +28,22 @@ public class Depense {
 	private String label;
 	
 	@NotNull
-	@Size(min=2, max=30)
-	private String proprietaire;
-	
-	@NotNull
 	@Min(1)
 	@Max(1000)
 	private float montant;
+	
+	@ManyToOne(cascade=CascadeType.ALL) 
+	@JoinColumn(name="user_id")
+	private User user;
+	
+	@Temporal(TemporalType.DATE)
+	private Date dateCreation;
+	
+	@NotNull
+	private boolean rembourser;
+	
+	@NotNull
+	private boolean offert;
 	
 	public Depense(){}
 	
@@ -35,10 +51,22 @@ public class Depense {
 		this.id = id;
 	}
 	
-	public Depense(String label, String proprietaire, float montant) {
+	public Depense(String label, float montant, User proprietaire) {
 		this.label = label;
-		this.proprietaire = proprietaire;
 		this.montant = montant;
+		this.user = proprietaire;
+		this.dateCreation = new Date();
+		this.offert = false;
+		this.rembourser = false;
+	}
+	
+	public Depense(String label, float montant, User proprietaire, boolean offert, boolean rembourser) {
+		this.label = label;
+		this.montant = montant;
+		this.user = proprietaire;
+		this.dateCreation = new Date();
+		this.offert = offert;
+		this.rembourser = rembourser;
 	}
 
 	public long getId(){
@@ -53,30 +81,54 @@ public class Depense {
 		return montant;
 	}
 	
-	public void setMontant(float montant){
-		this.montant = montant;
+	public Date getDateCreation() {
+		return dateCreation;
 	}
 	
 	public String getLabel(){
 		return label;
 	}
 	
+	public User getUser() {
+		return user;
+	}
+	
+	public boolean getRembourser(){
+		return rembourser;
+	}
+	
+	public boolean getOffert(){
+		return offert;
+	}
+	
+	public void setDateCreation(Date dateCreation) {
+		this.dateCreation = dateCreation;
+	}
+	
+	public void setMontant(float montant){
+		this.montant = montant;
+	}
+	
 	public void setLabel(String label){
 		this.label = label;
 	}
 	
-	public String getProprietaire(){
-		return proprietaire;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
-	public void setProprietaire(String proprietaire){
-		this.proprietaire = proprietaire;
+	public void setOffert(boolean offert) {
+		this.offert = offert;
+	}
+	
+	public void setRembourser(boolean rembourser) {
+		this.rembourser = rembourser;
 	}
 	
 	@Override
     public String toString() {
         return String.format(
                 "[id=%d, label='%s', propriétaire='%s', montant='%s']",
-                id, label, proprietaire, montant);
+                id, label, user.getUsername(), montant);
     }
 }

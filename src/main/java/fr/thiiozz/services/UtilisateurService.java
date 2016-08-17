@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.thiiozz.dao.UtilisateurDAO;
-import fr.thiiozz.model.Utilisateur;
+import fr.thiiozz.model.User;
 
 @Service
 public class UtilisateurService {
@@ -12,7 +12,7 @@ public class UtilisateurService {
 	@Autowired
 	UtilisateurDAO repository;
 	
-	public boolean ajouterUnUtilisateur(Utilisateur utilisateur) {
+	public boolean ajouterUnUtilisateur(User utilisateur) {
 		boolean resultat = true;
 		
 		try{
@@ -20,18 +20,6 @@ public class UtilisateurService {
 		}catch(Exception ex){
 			System.out.println(ex.toString());
 			resultat = false;
-		}
-		
-		return resultat;
-	}
-
-	public boolean authentifier(String nomUtilisateur) {
-		boolean resultat = false;
-		
-		try{
-			resultat = repository.findByNom(nomUtilisateur).getNom().equals(nomUtilisateur);
-		}catch(Exception ex){
-			System.out.println(ex.toString());
 		}
 		
 		return resultat;

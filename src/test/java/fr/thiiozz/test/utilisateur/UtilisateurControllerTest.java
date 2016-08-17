@@ -11,7 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import fr.thiiozz.controller.UtilisateurController;
 import fr.thiiozz.dao.UtilisateurDAO;
-import fr.thiiozz.model.Utilisateur;
+import fr.thiiozz.model.User;
 import fr.thiiozz.services.UtilisateurService;
 
 import static org.mockito.BDDMockito.*;
@@ -35,14 +35,12 @@ public class UtilisateurControllerTest {
     	mvc.perform(get("/login").accept(MediaType.TEXT_PLAIN))
     		.andExpect(status().isOk());
     	
-    	Utilisateur utilisateur = new Utilisateur("MrTest");
+    	User utilisateur = new User("MrTest", "TEST", true);
     	
         given(utilisateurService.ajouterUnUtilisateur(utilisateur)).willReturn(true);
         
         mvc.perform(get("/login?utilisateur=MrTest").accept(MediaType.TEXT_PLAIN))
         	.andExpect(status().isOk());
         	//.andExpect(redirectedUrl("/depenses?utilisateur=MrTest"));
-        
-        given(utilisateurService.authentifier("MrTest")).willReturn(true);
     }
 }

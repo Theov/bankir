@@ -4,9 +4,9 @@ import javax.transaction.Transactional;
 
 import org.springframework.data.repository.CrudRepository;
 
-import fr.thiiozz.model.Utilisateur;
+import fr.thiiozz.model.User;
 
 @Transactional
-public interface UtilisateurDAO extends CrudRepository<Utilisateur, Long>{
-	Utilisateur findByNom(String nom);
+public interface UtilisateurDAO extends CrudRepository<User, Long>{
+	User findByUsername(String username);
 }
