@@ -18,10 +18,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import fr.thiiozz.controller.DepenseController;
 import fr.thiiozz.dao.DepenseDAO;
-import fr.thiiozz.dao.RoleDAO;
-import fr.thiiozz.dao.UtilisateurDAO;
-import fr.thiiozz.model.Authority;
-import fr.thiiozz.model.User;
 import fr.thiiozz.services.DepenseService;
 
 

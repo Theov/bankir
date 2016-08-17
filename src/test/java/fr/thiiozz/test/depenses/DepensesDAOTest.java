@@ -42,7 +42,7 @@ public class DepensesDAOTest {
     public void desDepensesPeuventEtreAjoutees() throws Exception {
     	Set<Depense> depenses = new HashSet<Depense>();
     	depenses.add(new Depense("Libelle", 100.5f, user));
-    	depenses.add(new Depense("Libelle", 100.5f, user, true, true));
+    	depenses.add(new Depense("Libelle", 100.5f, user, false, false));
     	depenses.add(new Depense("Libelle", 100.5f, user));
     	depenses.add(new Depense("Libelle", 100.5f, user));
     	depenses.add(new Depense("Libelle", 100.5f, user));
