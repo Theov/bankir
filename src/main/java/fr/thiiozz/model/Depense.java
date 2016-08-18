@@ -51,6 +51,12 @@ public class Depense {
 		this.id = id;
 	}
 	
+	public Depense(long id, String label, float montant){
+		this.id = id;
+		this.label = label;
+		this.montant = montant;
+	}
+	
 	public Depense(String label, float montant, User proprietaire) {
 		this.label = label;
 		this.montant = montant;

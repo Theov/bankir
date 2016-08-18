@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import fr.thiiozz.dao.DepenseDAO;
 import fr.thiiozz.model.Depense;
+import fr.thiiozz.model.DepensePartiel;
 import fr.thiiozz.model.User;
 import fr.thiiozz.utils.StringHelper;
 
@@ -26,7 +27,7 @@ public class DepenseService {
 		boolean suppresionEffectue = true;
 		
 		try{
-			repository.delete(StringHelper.convertirChaineVersEntier(id));
+			supprimerUneDepense(trouverDepenseParId(id));
 		}catch(Exception ex){
 			System.out.println(ex.toString());
 			suppresionEffectue = false;
@@ -35,11 +36,16 @@ public class DepenseService {
 		return suppresionEffectue;
 	}
 	
-	public boolean supprimerUneDepense(long id) {
+	public Depense trouverDepenseParId(String id){
+		long idEntier = StringHelper.convertirChaineVersEntier(id);
+		return repository.exists(idEntier) ? repository.findOne(idEntier) : new Depense();
+	}
+	
+	public boolean supprimerUneDepense(Depense depenseSupprime) {
 		boolean suppresionEffectue = true;
 		
 		try{
-			repository.delete(id);
+			repository.delete(depenseSupprime);
 		}catch(Exception ex){
 			System.out.println(ex.toString());
 			suppresionEffectue = false;
@@ -76,8 +82,9 @@ public class DepenseService {
 		return ajoutEffectue;
 	}
 
-	public void offrirDepense(Depense depense, boolean estOfferte) {
-		depense.setOffert(estOfferte);
+	public void offrirDepense(String id) {
+		Depense depense = trouverDepenseParId(id);
+		depense.setOffert(!depense.getOffert());
 		sauvegarderDepense(depense);
 	}
 
@@ -85,5 +92,12 @@ public class DepenseService {
 		depenseRembourser.setRembourser(true);
 		
 		//Depense remboursementPremiereMoitie = new Depense();
+	}
+
+	public void modifierDepense(DepensePartiel depensePartiel) {
+		Depense depenseCorrespondante = repository.findOne(depensePartiel.getId());	
+		depenseCorrespondante.setLabel(depensePartiel.getLabel());
+		depenseCorrespondante.setMontant(depensePartiel.getMontant());
+		sauvegarderDepense(depenseCorrespondante);
 	}
 }

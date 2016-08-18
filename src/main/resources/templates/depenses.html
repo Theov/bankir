@@ -12,6 +12,7 @@
 					<th>Label</th>
 					<th>Propriétaire</th>
 					<th>Montant</th>
+					<th>Date</th>
 					<th>Offert</th>
 					<th>Remboursée</th>
 					<th>Outils</th>
@@ -20,12 +21,13 @@
 			        <td th:text="${depense.label}"></td>
 			        <td th:text="${depense.user?.username}"></td>
 			        <td th:text="${depense.montant}"></td>
+			        <td th:text="${depense.dateCreation}"></td>
 
 					<td th:text="${depense.offert} ? X : O"></td>
 			        <td th:text="${depense.rembourser} ? X : O"></td>
 			        
 			        <td>
-				        <a th:href="@{/depenses/modifier(id=${depense.id})}">Modifier</a>
+				        <a th:href="@{/depenses/form(id=${depense.id})}">Modifier</a>
 				        <a th:href="@{/depenses/supprimer(id=${depense.id})}">Supprimer</a>
 				        <a th:href="@{/depenses/offrir(id=${depense.id})}">Offrir</a>
 				        <a th:href="@{/depenses/rembourser(id=${depense.id})}">Rembourser</a>

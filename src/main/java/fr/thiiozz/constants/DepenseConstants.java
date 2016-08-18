@@ -19,6 +19,7 @@ public class DepenseConstants {
 	public final static String actionAjouterKo = "ajouterKo";
 	public final static String actionSupprimerOk = "supprimerOk";
 	public final static String actionSupprimerKo = "supprimerKo";
+	public final static String actionOffre = "offert";
 	
 	// Modele attributs
 	public final static String toutesLesDepensesModelAttribut = "depenses";
@@ -29,6 +30,8 @@ public class DepenseConstants {
 	private final static String messageSuppresionKo = "Erreur lors de la suppresion de la dépense !";
 	private final static String messageAjoutOk = "dépense ajoutée !";
 	private final static String messageAjoutKo = "Erreur lors de l'ajout de la dépense !";
+	private final static String messageOffre  = "Etat d'offre de la dépense modifié !";
+	
 	
 	public static String getMessage(String action) {
 		String message;
@@ -49,7 +52,11 @@ public class DepenseConstants {
 		case actionAjouterKo:
 			message = messageAjoutKo;
 			break;
-
+		
+		case actionOffre:
+			message = messageOffre;
+			break;
+			
 		default:
 			message = messageParDefaut;
 			break;

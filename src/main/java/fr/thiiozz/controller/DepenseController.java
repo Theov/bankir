@@ -3,12 +3,15 @@ package fr.thiiozz.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.thiiozz.constants.DepenseConstants;
 import fr.thiiozz.model.Depense;
+import fr.thiiozz.model.DepensePartiel;
 import fr.thiiozz.services.DepenseService;
 import fr.thiiozz.constants.GeneralConstants;
 
@@ -37,5 +40,24 @@ public class DepenseController {
 		String resultatDeSortie;
 		resultatDeSortie = service.ajouterUneDepenseSansUtilisateur(depenseAjoute) ? DepenseConstants.actionAjouterOk : DepenseConstants.actionAjouterKo;
 		return GeneralConstants.springRedirectionString + DepenseConstants.routeAfficher + DepenseConstants.parametreActionDecore + resultatDeSortie;
+	}
+	
+	@RequestMapping(value="/depenses/form", method=RequestMethod.GET)
+	public String proposerModificationDepense(@RequestParam(value=DepenseConstants.parametreId, required=true, defaultValue="0") String id, Model model){
+		model.addAttribute("depenseModifier", service.trouverDepenseParId(id));
+		return "formdepense";
+	}
+	
+	//TO_DO Pointer Exception
+	@RequestMapping(value="/depenses/form", method=RequestMethod.POST)
+	public String modifierUneDepense(DepensePartiel Depense){
+		service.modifierDepense(Depense);
+		return GeneralConstants.springRedirectionString + DepenseConstants.routeAfficher + DepenseConstants.parametreActionDecore + DepenseConstants.actionAjouterOk;
+	}
+	
+	@RequestMapping(value="/depenses/offrir", method=RequestMethod.GET)
+	public String offirUneDepense(@RequestParam(value=DepenseConstants.parametreId, required=true, defaultValue="0") String id){
+		service.offrirDepense(id);
+		return GeneralConstants.springRedirectionString + DepenseConstants.routeAfficher + DepenseConstants.parametreActionDecore + DepenseConstants.actionOffre;
 	}
 }

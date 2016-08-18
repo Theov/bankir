@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <title>Home | Bankir</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	</head>
+	<body>
+		<div id="modifier">
+			<form action="#" th:action="@{/depenses/form}" th:object="${DepensePartiel}" method="post">
+			   <p>Depenses saisie le</p>
+			   <p th:text="${depenseModifier?.dateCreation}"></p>
+			   <p>Par</p>
+			   <p th:text="${depenseModifier.user?.username}"></p>
+			
+			   <p> Label <input type="text" id="label" name="label" th:value="${depenseModifier?.label}" /> </p>
+			   <p> Montant <input type="text" id="montant" name="montant" th:value="${depenseModifier?.montant}" /> </p>
+			   <p><input type="hidden" id="id" name="id" th:value="${depenseModifier?.id}" /> </p>
+			   
+			   <input type="submit" value="Modifier"/>
+			</form>
+		</div>
+	</body>
+</html>

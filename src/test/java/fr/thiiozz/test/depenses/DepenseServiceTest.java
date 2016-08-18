@@ -72,7 +72,7 @@ public class DepenseServiceTest {
 		List<Depense> depenses = service.getAllDepenses();
 		assertThat(depenses).isNotEmpty();
 		
-		service.supprimerUneDepense(depenses.get(0).getId());
+		service.supprimerUneDepense(String.valueOf(depenses.get(0).getId()));
 		
 		List<Depense> depensesApresOperation = service.getAllDepenses();
 		assertThat(depensesApresOperation).isEmpty();
@@ -84,7 +84,7 @@ public class DepenseServiceTest {
 		assertThat(depenses).isNotEmpty();
 		assertThat(depenses.get(0).getOffert()).isFalse();
 		
-		service.offrirDepense(depenses.get(0), true);
+		service.offrirDepense(String.valueOf(depenses.get(0).getId()));
 		
 		List<Depense> depensesApresOperation = service.getAllDepenses();
 		assertThat(depensesApresOperation.get(0).getOffert()).isTrue();
