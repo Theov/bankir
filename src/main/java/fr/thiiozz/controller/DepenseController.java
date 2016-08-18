@@ -1,11 +1,8 @@
 package fr.thiiozz.controller;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,17 +33,9 @@ public class DepenseController {
 	}
 	
 	@RequestMapping(value=DepenseConstants.routeAjouter, method=RequestMethod.POST)
-	public String ajouterUneDepense(@Valid Depense depenseAjoute, BindingResult bindingResult){
-		
-		
+	public String ajouterUneDepense(Depense depenseAjoute){
 		String resultatDeSortie;
-		
-		if(bindingResult.hasErrors()){
-			resultatDeSortie = DepenseConstants.actionAjouterKo;
-		}else{
-			resultatDeSortie = service.ajouterUneDepense(depenseAjoute) ? DepenseConstants.actionAjouterOk : DepenseConstants.actionAjouterKo;
-		}
-		
+		resultatDeSortie = service.ajouterUneDepenseSansUtilisateur(depenseAjoute) ? DepenseConstants.actionAjouterOk : DepenseConstants.actionAjouterKo;
 		return GeneralConstants.springRedirectionString + DepenseConstants.routeAfficher + DepenseConstants.parametreActionDecore + resultatDeSortie;
 	}
 }

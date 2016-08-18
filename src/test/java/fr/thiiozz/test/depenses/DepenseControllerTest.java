@@ -5,12 +5,10 @@ import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.autoconfigure.web.servlet.*;
 import org.springframework.boot.test.mock.mockito.*;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.*;
-import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.*;
+
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -18,7 +16,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import fr.thiiozz.controller.DepenseController;
 import fr.thiiozz.dao.DepenseDAO;
+import fr.thiiozz.dao.UtilisateurDAO;
 import fr.thiiozz.services.DepenseService;
+import fr.thiiozz.services.UserService;
 
 
 @RunWith(SpringRunner.class)
@@ -33,7 +33,13 @@ public class DepenseControllerTest  {
     private DepenseService depenseService;
     
     @MockBean
+    private UserService service;
+    
+    @MockBean
     private DepenseDAO dao;
+    
+    @MockBean
+    private UtilisateurDAO daoUser;
     
     @Test
     public void unUtilisateurPeAccederAuDepensesSiIlEstAuthentifie() throws Exception {

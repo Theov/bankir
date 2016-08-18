@@ -10,8 +10,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.thiiozz.dao.RoleDAO;
 import fr.thiiozz.dao.UtilisateurDAO;
@@ -21,6 +23,8 @@ import fr.thiiozz.model.User;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
+@AutoConfigureTestDatabase
+@Transactional
 public class RoleDAOTest {
 	@Autowired
 	private RoleDAO repositoryRole;

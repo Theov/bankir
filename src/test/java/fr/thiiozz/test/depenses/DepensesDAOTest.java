@@ -13,8 +13,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.thiiozz.dao.DepenseDAO;
 import fr.thiiozz.dao.UtilisateurDAO;
@@ -23,6 +25,8 @@ import fr.thiiozz.model.User;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
+@AutoConfigureTestDatabase
+@Transactional
 public class DepensesDAOTest {
     @Autowired
     private DepenseDAO repository;
@@ -35,24 +39,21 @@ public class DepensesDAOTest {
     @Before
     public void setUp(){
     	user = new User("titi", "titi", true);
-    	repositoryUser.save(user);
-    }
-    
-    @Test
-    public void desDepensesPeuventEtreAjoutees() throws Exception {
+    	
     	Set<Depense> depenses = new HashSet<Depense>();
     	depenses.add(new Depense("Libelle", 100.5f, user));
     	depenses.add(new Depense("Libelle", 100.5f, user, false, false));
     	depenses.add(new Depense("Libelle", 100.5f, user));
     	depenses.add(new Depense("Libelle", 100.5f, user));
     	depenses.add(new Depense("Libelle", 100.5f, user));
-        repository.save(depenses);
         
         user.getDepenses().addAll(depenses);
         repositoryUser.save(user);
-        
-        
-        List<Depense> depensesEnBases = (List<Depense>) repository.findAll();
+    }
+    
+    @Test
+    public void desDepensesPeuventEtreAjoutees() throws Exception {
+    	List<Depense> depensesEnBases = (List<Depense>) repository.findAll();
         Depense depensesUnitaire = depensesEnBases.get(0);
         User utilisateurProprietaire = repositoryUser.findByUsername("titi");
         
