@@ -87,11 +87,26 @@ public class DepenseService {
 		depense.setOffert(!depense.getOffert());
 		sauvegarderDepense(depense);
 	}
-
+	
+	public void rembourserDepense(String id) {
+		rembourserDepense(trouverDepenseParId(id));
+	}
+	
 	public void rembourserDepense(Depense depenseRembourser) {
-		depenseRembourser.setRembourser(true);
-		
-		//Depense remboursementPremiereMoitie = new Depense();
+		if(!depenseRembourser.getRembourser()){
+			depenseRembourser.setRembourser(true);
+			depenseRembourser.setOffert(false);
+			
+			String labelRemboursement = depenseRembourser.getLabel() + " - remboursement";
+			float montantRemboursement = depenseRembourser.getMontant() / 2;
+			
+			Depense remboursementPremiereMoitie = new Depense(labelRemboursement,  montantRemboursement, depenseRembourser.getUser());
+			Depense remboursementDeuxiemeMoitie = new Depense(labelRemboursement,  montantRemboursement, depenseRembourser.getUser().getTiers());
+			
+			sauvegarderDepense(depenseRembourser);
+			sauvegarderDepense(remboursementPremiereMoitie);
+			sauvegarderDepense(remboursementDeuxiemeMoitie);
+		}
 	}
 
 	public void modifierDepense(DepensePartiel depensePartiel) {

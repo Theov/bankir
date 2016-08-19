@@ -64,4 +64,10 @@ public class DepenseController {
 		service.offrirDepense(id);
 		return GeneralConstants.springRedirectionString + DepenseConstants.routeAfficher + DepenseConstants.parametreActionDecore + DepenseConstants.actionOffre;
 	}
+	
+	@RequestMapping(value="/depenses/rembourser", method=RequestMethod.GET)
+	public String rembourserUneDepense(@RequestParam(value=DepenseConstants.parametreId, required=true, defaultValue="0") String id){
+		service.rembourserDepense(id);
+		return GeneralConstants.springRedirectionString + DepenseConstants.routeAfficher + DepenseConstants.parametreActionDecore + DepenseConstants.actionRembourse;
+	}
 }

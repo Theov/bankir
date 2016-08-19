@@ -20,6 +20,7 @@ public class DepenseConstants {
 	public final static String actionSupprimerOk = "supprimerOk";
 	public final static String actionSupprimerKo = "supprimerKo";
 	public final static String actionOffre = "offert";
+	public final static String actionRembourse = "rembourse";
 	public final static String actionModifier = "modifier";
 	public final static String actionAjouterErreurFormulaire = "ajouterFormKo";
 	
@@ -34,6 +35,7 @@ public class DepenseConstants {
 	private final static String messageAjoutKo = "Erreur lors de l'ajout de la dépense !";
 	private final static String messageAjoutFormKo  = "Les valeurs saisies sont érronées !";
 	private final static String messageOffre  = "Etat d'offre de la dépense modifié !";
+	private final static String messageRembourser  = "Dépénse remboursées !";
 	private final static String messageModifier  = "Dépense modifiée !";
 
 	
@@ -71,6 +73,10 @@ public class DepenseConstants {
 		
 		case actionOffre:
 			message = messageOffre;
+			break;
+		
+		case actionRembourse:
+			message = messageRembourser;
 			break;
 			
 		default:

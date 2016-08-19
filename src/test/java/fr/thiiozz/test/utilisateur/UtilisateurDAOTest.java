@@ -27,22 +27,27 @@ public class UtilisateurDAOTest {
 	private UtilisateurDAO repository;
 
 	@Test
-	public void unUtilisateurPeutEtrePersisteAvecDesRoles() throws Exception {
-		User userTest = new User("titi", "titi", true);
+	public void unUtilisateurPeutEtrePersisteAvecDesRolesEtUnAssocie() throws Exception {
+		User userTest1 = new User("titi", "titi", true);
+		User userTest2 = new User("toto", "toto", true);
 		
-		Set<Authority> roles = new HashSet<Authority>();
-		roles.add(new Authority("ADMIN", userTest));
-		roles.add(new Authority("USER", userTest));
+		userTest1.getRoles().add(new Authority("ADMIN", userTest1));
+		userTest1.getRoles().add(new Authority("USER", userTest2));
 		
-		userTest.getRoles().addAll(roles);
-		repository.save(userTest);
+		userTest1.setTiers(userTest2);
+		userTest2.setTiers(userTest1);
 		
-		long id = userTest.getId();
+		repository.save(userTest1);
+		repository.save(userTest2);
+		
+		
+		long id = userTest1.getId();
 		
 		assertThat(repository.exists(id)).isTrue();
 		User userEnBase = repository.findOne(id);
 		
 		assertThat(userEnBase.getUsername()).isEqualTo("titi");
 		assertThat(userEnBase.getRoles().size()).isEqualTo(2);
+		assertThat(userEnBase.getTiers().getUsername()).isEqualTo("toto");
 	}
 }

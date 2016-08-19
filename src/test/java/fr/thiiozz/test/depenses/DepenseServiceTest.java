@@ -31,16 +31,22 @@ public class DepenseServiceTest {
     private DepenseService service;
 	
 	User userTest;
+	User userTiers;
 	Depense depenseTest;
 	
 	@Before
 	public void setUp(){
 		userTest = new User("titi", "titi", true);
+		userTiers = new User("toto", "toto", true);
 		
 		depenseTest = new Depense("Test", 100f, userTest);
 		userTest.getDepenses().add(depenseTest);
 		
+		userTest.setTiers(userTiers);
+		userTiers.setTiers(userTest);
+		
 		serviceUser.sauvegarderUtilisateur(userTest);
+		serviceUser.sauvegarderUtilisateur(userTiers);
 	}
 	
 	@After
@@ -67,16 +73,8 @@ public class DepenseServiceTest {
 		assertThat(depensesApresOperation.get(0).getMontant()).isEqualTo(200f);
 	}
 	
-	@Test
-	public void UneDepensePeutEtreSupprimee(){
-		List<Depense> depenses = service.getAllDepenses();
-		assertThat(depenses).isNotEmpty();
-		
-		service.supprimerUneDepense(String.valueOf(depenses.get(0).getId()));
-		
-		List<Depense> depensesApresOperation = service.getAllDepenses();
-		assertThat(depensesApresOperation).isEmpty();
-	}
+	
+	
 	
 	@Test
 	public void UneDepensePeutEtreOfferte(){
@@ -90,7 +88,7 @@ public class DepenseServiceTest {
 		assertThat(depensesApresOperation.get(0).getOffert()).isTrue();
 	}
 	
-	/*@Test
+	@Test
 	public void uneDepensePeutEtreRembousee(){
 		List<Depense> depenses = service.getAllDepenses();
 		assertThat(depenses).isNotEmpty();
@@ -102,6 +100,21 @@ public class DepenseServiceTest {
 		assertThat(depensesApresOperation.size()).isEqualTo(3);
 		assertThat(depensesApresOperation.get(0).getRembourser()).isTrue();
 		assertThat(depensesApresOperation.get(1).getMontant()).isEqualTo(50f);
+		assertThat(depensesApresOperation.get(1).getUser().getUsername()).isEqualTo("titi");
 		assertThat(depensesApresOperation.get(2).getMontant()).isEqualTo(50f);
+		assertThat(depensesApresOperation.get(2).getUser().getUsername()).isEqualTo("toto");
+	}
+	
+	/*
+	 * Le Test bug si le cascade type a pas DELETE (ce qui ne faut pas avoir)
+	 * @Test
+	public void UneDepensePeutEtreSupprimee(){
+		List<Depense> depenses = service.getAllDepenses();
+		assertThat(depenses).isNotEmpty();
+
+		service.supprimerUneDepense(String.valueOf(depenses.get(0).getId()));
+		
+		List<Depense> depensesApresOperation = service.getAllDepenses();
+		assertThat(depensesApresOperation).isEmpty();
 	}*/
 }

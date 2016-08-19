@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -40,6 +41,9 @@ public class User implements Serializable{
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="user")
 	private Set<Depense> depenses = new HashSet<Depense>();
 	
+	@OneToOne
+	private User tiers;
+	
 	public User() {
 	}
 	
@@ -56,6 +60,13 @@ public class User implements Serializable{
 		this.username = nom;
 		this.password = password;
 		this.enabled = enabled;
+	}
+	
+	public User(String nom, String password, boolean enabled, User tiers) {
+		this.username = nom;
+		this.password = password;
+		this.enabled = enabled;
+		this.tiers = tiers;
 	}
 	
 	public Long getId(){
@@ -82,6 +93,10 @@ public class User implements Serializable{
 		return enabled;
 	}
 	
+	public User getTiers() {
+		return tiers;
+	}
+	
 	public void setId(Long id){
 		this.id = id;
 	}
@@ -104,6 +119,10 @@ public class User implements Serializable{
 	
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public void setTiers(User userTiers) {
+		this.tiers = userTiers;
 	}
 
 }
