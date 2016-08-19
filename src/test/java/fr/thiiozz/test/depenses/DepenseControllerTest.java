@@ -8,6 +8,8 @@ import org.springframework.boot.test.mock.mockito.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 
@@ -51,5 +53,15 @@ public class DepenseControllerTest  {
     public void unUtilisateurNePeuPasAccederAuDepensesSiIlEstPasAuthentifie() throws Exception {
     	mvc.perform(get("/depenses").with(user("titi").password("toto").roles("NUllos")))
         		.andExpect(status().isForbidden());
+    }
+    
+    @Test
+    public void unUtilisateurAjouterUneDepense() throws Exception {
+    	MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+    	params.add("label", "test");
+    	params.add("montant", "100");
+    	
+    	mvc.perform(post("/depenses").params(params).with(user("titi").password("titi").roles("ADMIN", "USER")))
+    		.andExpect(status().isOk());
     }
 }

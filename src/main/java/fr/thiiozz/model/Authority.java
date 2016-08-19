@@ -27,7 +27,7 @@ public class Authority implements Serializable{
 	@NotNull
 	private String authority;
 	
-	@ManyToOne(cascade=CascadeType.ALL) 
+	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
 	

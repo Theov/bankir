@@ -20,6 +20,8 @@ public class DepenseConstants {
 	public final static String actionSupprimerOk = "supprimerOk";
 	public final static String actionSupprimerKo = "supprimerKo";
 	public final static String actionOffre = "offert";
+	public final static String actionModifier = "modifier";
+	public final static String actionAjouterErreurFormulaire = "ajouterFormKo";
 	
 	// Modele attributs
 	public final static String toutesLesDepensesModelAttribut = "depenses";
@@ -30,7 +32,13 @@ public class DepenseConstants {
 	private final static String messageSuppresionKo = "Erreur lors de la suppresion de la dépense !";
 	private final static String messageAjoutOk = "dépense ajoutée !";
 	private final static String messageAjoutKo = "Erreur lors de l'ajout de la dépense !";
+	private final static String messageAjoutFormKo  = "Les valeurs saisies sont érronées !";
 	private final static String messageOffre  = "Etat d'offre de la dépense modifié !";
+	private final static String messageModifier  = "Dépense modifiée !";
+
+	
+
+	
 	
 	
 	public static String getMessage(String action) {
@@ -51,6 +59,14 @@ public class DepenseConstants {
 			
 		case actionAjouterKo:
 			message = messageAjoutKo;
+			break;
+		
+		case actionAjouterErreurFormulaire:
+			message = messageAjoutFormKo;
+			break;
+		
+		case actionModifier:
+			message = messageModifier;
 			break;
 		
 		case actionOffre:

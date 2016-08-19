@@ -4,35 +4,16 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @Entity
-public class Depense {
+public class Depense extends DepensePartiel{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
-	
-	@NotNull
-	@Size(min=2, max=30)
-	private String label;
-	
-	@NotNull
-	@Min(1)
-	@Max(1000)
-	private float montant;
-	
-	@ManyToOne(cascade=CascadeType.ALL) 
+	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
 	
@@ -45,19 +26,24 @@ public class Depense {
 	@NotNull
 	private boolean offert;
 	
-	public Depense(){}
+	public Depense(){
+		super();
+	}
 	
 	public Depense(long id){
+		super();
 		this.id = id;
 	}
 	
 	public Depense(long id, String label, float montant){
+		super();
 		this.id = id;
 		this.label = label;
 		this.montant = montant;
 	}
 	
 	public Depense(String label, float montant, User proprietaire) {
+		super();
 		this.label = label;
 		this.montant = montant;
 		this.user = proprietaire;
@@ -67,6 +53,7 @@ public class Depense {
 	}
 	
 	public Depense(String label, float montant, User proprietaire, boolean offert, boolean rembourser) {
+		super();
 		this.label = label;
 		this.montant = montant;
 		this.user = proprietaire;
@@ -74,25 +61,10 @@ public class Depense {
 		this.offert = offert;
 		this.rembourser = rembourser;
 	}
-
-	public long getId(){
-		return id;
-	}
 	
-	public void setId(long id){
-		this.id = id;
-	}
-	
-	public float getMontant(){
-		return montant;
-	}
 	
 	public Date getDateCreation() {
 		return dateCreation;
-	}
-	
-	public String getLabel(){
-		return label;
 	}
 	
 	public User getUser() {
@@ -109,14 +81,6 @@ public class Depense {
 	
 	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
-	}
-	
-	public void setMontant(float montant){
-		this.montant = montant;
-	}
-	
-	public void setLabel(String label){
-		this.label = label;
 	}
 	
 	public void setUser(User user) {

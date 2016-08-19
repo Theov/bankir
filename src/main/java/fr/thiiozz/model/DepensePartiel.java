@@ -1,16 +1,28 @@
 package fr.thiiozz.model;
 
-import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-@Entity
+@MappedSuperclass
 public class DepensePartiel {
 	@Id
-	private long id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	protected long id;
 	
-	private String label;
+	@NotNull
+	@Size(min=2, max=30)
+	protected String label;
 	
-	private float montant;
+	@NotNull
+	@Min(1)
+	@Max(1000)
+	protected float montant;
 	
 	public long getId() {
 		return id;
