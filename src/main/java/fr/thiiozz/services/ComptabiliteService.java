@@ -30,6 +30,36 @@ public class ComptabiliteService {
 		return montantTotalDesDepenses;
 	}
 	
+	public String getChaineRedevabilite(){
+		String nomUserRedevable = "";
+		String nomUserBanquier = "";
+		
+		User premierUtilisateur = serviceUtilisateurs.getUtilisateurCourant();
+		User secondUtilisateur = serviceUtilisateurs.getUtilisateurCourant().getTiers();
+		
+		float totalPremierUser = getTotalDepensePour(premierUtilisateur);
+		float totalSecondUser = getTotalDepensePour(secondUtilisateur);
+		
+		float dette = 0;
+		
+		if(totalPremierUser > totalSecondUser){
+			nomUserRedevable = secondUtilisateur.getUsername();
+			nomUserBanquier = premierUtilisateur.getUsername(); 
+			dette = totalPremierUser - totalSecondUser;
+		}else{
+			nomUserRedevable = premierUtilisateur.getUsername();
+			nomUserBanquier = secondUtilisateur.getUsername(); 
+			dette = totalSecondUser - totalPremierUser;
+		}
+		
+		return construireChaineRedevabilite(nomUserRedevable, dette, nomUserBanquier);
+		
+	}
+	
+	private String construireChaineRedevabilite(String nomUserRedevable, float dette, String nomUserBanquier) {
+		return nomUserRedevable + " doit " + dette + "€ à " + nomUserBanquier;
+	}
+
 	private String construireChaineDeTotal(String username, float montant){
 		return "Total des dépenses pour : " + username + " " + String.valueOf(montant) + "€";
 	}

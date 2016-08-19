@@ -36,6 +36,7 @@ public class DepenseController {
 		//Model Compta
 		model.addAttribute("total_1", serviceComptabilite.getPremiereChaineTotal());
 		model.addAttribute("total_2", serviceComptabilite.getSecondeChaineTotal());
+		model.addAttribute("dette", serviceComptabilite.getChaineRedevabilite());
 		
 		return DepenseConstants.templateDepenses;
 	}
