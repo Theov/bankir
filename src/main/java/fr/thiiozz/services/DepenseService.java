@@ -1,5 +1,6 @@
 package fr.thiiozz.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,7 +96,7 @@ public class DepenseService {
 	public void rembourserDepense(Depense depenseRembourser) {
 		if(!depenseRembourser.getRembourser()){
 			depenseRembourser.setRembourser(true);
-			depenseRembourser.setLabel(" - " + depenseRembourser.getLabel() + " - remboursée");
+			depenseRembourser.setLabel(depenseRembourser.getLabel());
 			depenseRembourser.setOffert(false);
 			
 			String labelRemboursement = depenseRembourser.getLabel() + " - remboursement";
@@ -115,5 +116,11 @@ public class DepenseService {
 		depenseCorrespondante.setLabel(depensePartiel.getLabel());
 		depenseCorrespondante.setMontant(depensePartiel.getMontant());
 		sauvegarderDepense(depenseCorrespondante);
+	}
+	
+	public List<Depense> trouverToutesDepensesDut(){
+		List<Depense> depensesDut = new ArrayList<Depense>();
+		depensesDut = repository.findByRembourserAndOffert(false, false);
+		return depensesDut;
 	}
 }

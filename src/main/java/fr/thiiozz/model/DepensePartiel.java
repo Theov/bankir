@@ -16,7 +16,7 @@ public class DepensePartiel {
 	protected long id;
 	
 	@NotNull
-	@Size(min=2, max=30)
+	@Size(max=100)
 	protected String label;
 	
 	@NotNull
