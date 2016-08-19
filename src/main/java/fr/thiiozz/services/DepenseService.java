@@ -95,6 +95,7 @@ public class DepenseService {
 	public void rembourserDepense(Depense depenseRembourser) {
 		if(!depenseRembourser.getRembourser()){
 			depenseRembourser.setRembourser(true);
+			depenseRembourser.setLabel(" - " + depenseRembourser.getLabel() + " - remboursée");
 			depenseRembourser.setOffert(false);
 			
 			String labelRemboursement = depenseRembourser.getLabel() + " - remboursement";
