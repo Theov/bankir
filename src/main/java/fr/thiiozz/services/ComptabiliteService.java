@@ -29,5 +29,20 @@ public class ComptabiliteService {
 		
 		return montantTotalDesDepenses;
 	}
+	
+	private String construireChaineDeTotal(String username, float montant){
+		return "Total des dépenses pour : " + username + " " + String.valueOf(montant) + "€";
+	}
+	public String getPremiereChaineTotal() {
+		User premierUser = serviceUtilisateurs.getUtilisateurCourant();
+		String totalDepensePremierUtilisateur = construireChaineDeTotal(premierUser.getUsername(), getTotalDepensePour(premierUser));
+		return totalDepensePremierUtilisateur;
+	}
+
+	public String getSecondeChaineTotal() {
+		User secondUser = serviceUtilisateurs.getUtilisateurCourant().getTiers();
+		String totalDepenseSecondUtilisateur = construireChaineDeTotal(secondUser.getUsername(), getTotalDepensePour(secondUser));
+		return totalDepenseSecondUtilisateur;
+	}
 
 }

@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import fr.thiiozz.constants.DepenseConstants;
 import fr.thiiozz.model.Depense;
 import fr.thiiozz.model.DepensePartiel;
-import fr.thiiozz.model.User;
 import fr.thiiozz.services.ComptabiliteService;
 import fr.thiiozz.services.DepenseService;
-import fr.thiiozz.services.UserService;
 import fr.thiiozz.constants.GeneralConstants;
 
 @Controller
@@ -28,9 +26,6 @@ public class DepenseController {
 	@Autowired
 	private ComptabiliteService serviceComptabilite;
 	
-	@Autowired
-	private UserService serviceUtilisateur;
-	
 	@RequestMapping(value=DepenseConstants.routeAfficher)
 	public String afficherToutesLesDepenses(@RequestParam(value=DepenseConstants.parametreAction, required=true, defaultValue=DepenseConstants.actionAfficher) String action, Model model){
 		
@@ -39,14 +34,8 @@ public class DepenseController {
 		model.addAttribute(DepenseConstants.toutesLesDepensesModelAttribut, serviceDepenses.getAllDepenses());
 		
 		//Model Compta
-		User premierUser = serviceUtilisateur.getUtilisateurCourant();
-		User secondUser = serviceUtilisateur.getUtilisateurCourant().getTiers();
-		
-		String totalDepensePremierUtilisateur = "Total des dépenses pour : " + premierUser.getUsername() + " " + String.valueOf(serviceComptabilite.getTotalDepensePour(premierUser));
-		String totalDepenseSecondUtilisateur = "Total des dépenses pour : " + secondUser.getUsername() + " " + String.valueOf(serviceComptabilite.getTotalDepensePour(secondUser));
-		
-		model.addAttribute("total_1", totalDepensePremierUtilisateur);
-		model.addAttribute("total_2", totalDepenseSecondUtilisateur);
+		model.addAttribute("total_1", serviceComptabilite.getPremiereChaineTotal());
+		model.addAttribute("total_2", serviceComptabilite.getSecondeChaineTotal());
 		
 		return DepenseConstants.templateDepenses;
 	}

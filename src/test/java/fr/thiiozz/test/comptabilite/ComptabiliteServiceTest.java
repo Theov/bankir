@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import fr.thiiozz.model.Depense;
 import fr.thiiozz.model.User;
 import fr.thiiozz.services.ComptabiliteService;
-import fr.thiiozz.services.DepenseService;
 import fr.thiiozz.services.UserService;
 
 @RunWith(SpringRunner.class)
@@ -92,5 +91,5 @@ public class ComptabiliteServiceTest {
 		assertThat(montantUser1).isEqualTo(0);
 	}
 
-
+	
 }
